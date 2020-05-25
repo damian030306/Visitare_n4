@@ -28,11 +28,14 @@ namespace Visitare_n1.Models
 
             }
         }
+      //  [Required]
         public List<string> Answers { get; set; }
         public int GoodAnswer { get; set; }
         public string Correct { get; set; }
         public int RouteId { set; get; }
         [ForeignKey("RouteId")]
         public Route Route { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
     }
 }

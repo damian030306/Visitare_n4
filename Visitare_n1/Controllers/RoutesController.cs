@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.Security;
 using Visitare_n1.Models;
 
 namespace Visitare_n1.Controllers
@@ -172,16 +174,32 @@ namespace Visitare_n1.Controllers
         }
 
         // DELETE: api/Routes/5
+        [AllowAnonymous]
         [Authorize(Roles = "Creator")]
         [ResponseType(typeof(Route))]
         public async Task<IHttpActionResult> DeleteRoute(int id)
         {
+            string idU = RequestContext.Principal.Identity.GetUserId();
             Route route = await db.Routes.FindAsync(id);
-            if (route == null)
+            if (route == null )
             {
                 return NotFound();
             }
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUserModel>(context);
+                var userManager = new UserManager<ApplicationUserModel>(userStore);
 
+
+               Task<bool> checkUser =   userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
+
+
+                if ( id == 1)
+                //if (route.UserId != idU || checkUser.Equals(false)  || id == 1)
+                {
+                return Unauthorized();
+            }
+            }
             db.Routes.Remove(route);
             await db.SaveChangesAsync();
 

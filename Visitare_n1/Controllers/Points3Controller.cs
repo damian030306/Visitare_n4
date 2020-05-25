@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,6 +31,7 @@ namespace Visitare_n1.Controllers
         public string Description = "Brak";
         public List<Points3> PointList;
         public string ImageUrl;
+        public string id;
 
 
 
@@ -57,6 +59,7 @@ namespace Visitare_n1.Controllers
         public string ImageUrl { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
+        public int id { get; set; }
         public string Description { get; set; }
         public List<string> points;
         public List<AsnwerQAndQuestion3> AsnwerQAndQuestion;
@@ -136,6 +139,7 @@ namespace Visitare_n1.Controllers
                 punkty6.Description = route2.Description;
                 punkty6.ImageUrl = route2.ImageUrl;
                 punkty6.UserName = route2.UserName;
+                punkty6.id = route2.Id;
                 punkty6.points = new List<string>();
                 List<Points3> points2 = new List<Points3>(db.Points3.Where(q => q.RouteId == route2.Id));
                 foreach (Points3 point2 in points2)
@@ -180,6 +184,7 @@ namespace Visitare_n1.Controllers
             punkty6.Description = route2.Description;
             punkty6.ImageUrl = route2.ImageUrl;
             punkty6.UserName = route2.UserName;
+            punkty6.id = route2.Id;
             punkty6.points = new List<string>();
             List<Points3> points2 = new List<Points3>(db.Points3.Where(q => q.RouteId == route2.Id));
             foreach (Points3 point2 in points2)
@@ -251,6 +256,9 @@ namespace Visitare_n1.Controllers
                 {
                     points3.RouteId = route.Id;
                     db.Entry(points3).State = EntityState.Modified;
+                    points3.UserId = RequestContext.Principal.Identity.GetUserId();
+                    points3.UserName = RequestContext.Principal.Identity.GetUserName();
+
                     output.Points3s.Add(points3);
                     try
                     {
@@ -324,7 +332,8 @@ namespace Visitare_n1.Controllers
             {
 
                 points3.RouteId = route.Id;
-
+                points3.UserId = RequestContext.Principal.Identity.GetUserId();
+                points3.UserName = RequestContext.Principal.Identity.GetUserName();
                 db.Points3.Add(points3);
                 await db.SaveChangesAsync();
                 output.Points3s.Add(points3);
@@ -364,7 +373,8 @@ namespace Visitare_n1.Controllers
             {
 
                 points3.RouteId = route.Id;
-
+                points3.UserId = RequestContext.Principal.Identity.GetUserId();
+                points3.UserName = RequestContext.Principal.Identity.GetUserName();
                 db.Points3.Add(points3);
                 await db.SaveChangesAsync();
                 output.Points3s.Add(points3);
@@ -385,6 +395,13 @@ namespace Visitare_n1.Controllers
             {
                 return BadRequest(ModelState);
             }
+            points3.UserId = RequestContext.Principal.Identity.GetUserId();
+            points3.UserName = RequestContext.Principal.Identity.GetUserName();
+            Route route = await db.Routes.FindAsync(points3.RouteId);
+            if(route == null)
+            {
+                return NotFound();
+            }
 
             db.Points3.Add(points3);
             await db.SaveChangesAsync();
@@ -397,12 +414,27 @@ namespace Visitare_n1.Controllers
         [ResponseType(typeof(Points3))]
         public async Task<IHttpActionResult> DeletePoints3(int id)
         {
+            string idU = RequestContext.Principal.Identity.GetUserId();
             Points3 points3 = await db.Points3.FindAsync(id);
             if (points3 == null)
             {
                 return NotFound();
             }
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUserModel>(context);
+                var userManager = new UserManager<ApplicationUserModel>(userStore);
 
+
+                Task<bool> checkUser = userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
+
+
+                if (points3.UserId != idU || checkUser.Equals(false) || id == 1)
+                {
+                    return Unauthorized();
+                }
+            }
+            
             db.Points3.Remove(points3);
             await db.SaveChangesAsync();
 

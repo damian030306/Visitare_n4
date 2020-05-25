@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -80,6 +82,13 @@ namespace Visitare_n1.Controllers
             {
                 return BadRequest(ModelState);
             }
+            Route route = await db.Routes.FindAsync(answerAndQuestion2.RouteId);
+            answerAndQuestion2.UserId = RequestContext.Principal.Identity.GetUserId();
+            answerAndQuestion2.UserName = RequestContext.Principal.Identity.GetUserName();
+            if (route == null || answerAndQuestion2.Answers == null )
+            {
+                return NotFound();
+            }
 
             db.AnswerAndQuestion2.Add(answerAndQuestion2);
             await db.SaveChangesAsync();
@@ -91,11 +100,28 @@ namespace Visitare_n1.Controllers
         [ResponseType(typeof(AnswerAndQuestion2))]
         public async Task<IHttpActionResult> DeleteAnswerAndQuestion2(int id)
         {
+            string idU = RequestContext.Principal.Identity.GetUserId();
             AnswerAndQuestion2 answerAndQuestion2 = await db.AnswerAndQuestion2.FindAsync(id);
-            if (answerAndQuestion2 == null)
+            if (answerAndQuestion2 == null )
             {
                 return NotFound();
+                
             }
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUserModel>(context);
+                var userManager = new UserManager<ApplicationUserModel>(userStore);
+
+
+                Task<bool> checkUser = userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
+
+
+                if (answerAndQuestion2.UserId != idU || checkUser.Equals(false) || id == 1)
+                {
+                    return Unauthorized();
+                }
+            }
+           
 
             db.AnswerAndQuestion2.Remove(answerAndQuestion2);
             await db.SaveChangesAsync();

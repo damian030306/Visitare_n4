@@ -22,5 +22,7 @@ namespace Visitare_n1.Models
         public int RouteId { set; get; }
         [ForeignKey("RouteId")]
         public Route Route { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
     }
 }

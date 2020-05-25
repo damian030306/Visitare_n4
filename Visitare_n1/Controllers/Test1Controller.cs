@@ -161,11 +161,19 @@ namespace Visitare_n1.Controllers
                     Output.Punkty = test1.Punkty;
                     Output.Nickname = test1.Nickname;
                     Output.Roles = new List<string>();
+                if(user.Roles == null)
+                {
+
+                }
+                else
+                {
                     foreach (var r in user.Roles)
                     {
 
                         Output.Roles.Add(roles.Where(x => x.Id == r.RoleId).First().Name);
                     }
+                }
+                   
 
                     return Output;
                 }
