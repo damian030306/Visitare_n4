@@ -11,9 +11,11 @@ using Visitare_n1.Models;
 
 namespace Visitare_n1.Controllers
 {
+    [Authorize]
     public class UserController : ApiController
     {
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/User/Admin/AddToRole")]
         public void AddToARole(string userId, string roleName)
         {
@@ -31,7 +33,7 @@ namespace Visitare_n1.Controllers
                 userManager.AddToRole(userId, roleName);
             }
         }
-        //  [Authorize(Roles = "Admin")]
+          [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("api/User/Admin/RemoveToRole")]
         public void RemoveToARole(string userId, string roleName)

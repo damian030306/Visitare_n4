@@ -212,7 +212,7 @@ namespace Visitare_n1.Controllers
 
         }
         // PUT: api/Points3/5
-        [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(void))]
         [Route("api/Points3/Change")]
         // [FromBody]
@@ -298,7 +298,7 @@ namespace Visitare_n1.Controllers
 
 
         }
-        [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/Add")]
         public async Task<Punkty4> PostPoints32(Punkty3 punkty3)
@@ -345,7 +345,7 @@ namespace Visitare_n1.Controllers
             //   return CreatedAtRoute()
             return output;
         }
-        [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/AddToExistingRoute")]
         public async Task<Punkty4> PostPoints32(Punkty5 punkty5)
@@ -387,7 +387,7 @@ namespace Visitare_n1.Controllers
             return output;
         }
         // POST: api/Points3
-        [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Points3))]
         public async Task<IHttpActionResult> PostPoints3(Points3 points3)
         {
@@ -429,7 +429,7 @@ namespace Visitare_n1.Controllers
                 Task<bool> checkUser = userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
 
 
-                if (points3.UserId != idU || checkUser.Equals(false) || id == 1)
+                if (points3.UserId != idU || checkUser.Equals(false) )
                 {
                     return Unauthorized();
                 }

@@ -14,6 +14,7 @@ using Visitare_n1.Models;
 
 namespace Visitare_n1.Controllers
 {
+    [Authorize]
     public class VisitedPointsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -29,7 +30,7 @@ namespace Visitare_n1.Controllers
         [ResponseType(typeof(bool))]
         public async Task<bool> GetVisitedPoint2(int pointId)
         {
-            string id = RequestContext.Principal.Identity.GetUserId(); ;
+            string id = RequestContext.Principal.Identity.GetUserId(); 
             VisitedPoint visitedPoint = await db.VisitedPoints.FindAsync(id, pointId);
 
             if (visitedPoint == null)
@@ -42,40 +43,40 @@ namespace Visitare_n1.Controllers
             return true;
         }
 
-        // PUT: api/VisitedPoints/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutVisitedPoint(string id, VisitedPoint visitedPoint)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/VisitedPoints/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutVisitedPoint(string id, VisitedPoint visitedPoint)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != visitedPoint.UserId)
-            {
-                return BadRequest();
-            }
+        //    if (id != visitedPoint.UserId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(visitedPoint).State = EntityState.Modified;
+        //    db.Entry(visitedPoint).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VisitedPointExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!VisitedPointExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/VisitedPoints
         [Route("api/VisitedPoints/Add/{pointid}")]

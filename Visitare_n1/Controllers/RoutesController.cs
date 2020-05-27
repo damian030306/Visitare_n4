@@ -114,7 +114,7 @@ namespace Visitare_n1.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-        [Authorize(Roles = "Creator")]
+         [Authorize(Roles = "Creator, Admin")]
         [Route("api/Routes/AddImageUrl/{id}")]
         [ResponseType(typeof(Route))]
         public async Task<IHttpActionResult> PutRoute(int id, string ImageUrl)
@@ -123,6 +123,7 @@ namespace Visitare_n1.Controllers
             {
                 return BadRequest(ModelState);
             }
+            string Uid = RequestContext.Principal.Identity.GetUserId(); 
             Route route = await db.Routes.FindAsync(id);
             if (route == null)
             {
@@ -131,6 +132,10 @@ namespace Visitare_n1.Controllers
             if (id != route.Id)
             {
                 return BadRequest();
+            }
+            if(Uid != route.UserId)
+            {
+                return Unauthorized();
             }
             route.ImageUrl = ImageUrl;
 
@@ -157,7 +162,7 @@ namespace Visitare_n1.Controllers
             return Ok(route);
         }
         // POST: api/Routes
-        [Authorize(Roles = "Creator")]
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Route))]
         public async Task<IHttpActionResult> PostRoute(Route route)
         {
@@ -174,8 +179,8 @@ namespace Visitare_n1.Controllers
         }
 
         // DELETE: api/Routes/5
-        [AllowAnonymous]
-        [Authorize(Roles = "Creator")]
+
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Route))]
         public async Task<IHttpActionResult> DeleteRoute(int id)
         {
@@ -185,27 +190,41 @@ namespace Visitare_n1.Controllers
             {
                 return NotFound();
             }
-            using (var context = new ApplicationDbContext())
-            {
-                var userStore = new UserStore<ApplicationUserModel>(context);
-                var userManager = new UserManager<ApplicationUserModel>(userStore);
-
-
-               Task<bool> checkUser =   userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
-
-
-                if ( id == 1)
-                //if (route.UserId != idU || checkUser.Equals(false)  || id == 1)
+          
+               // if ( id == 1)
+                if (route.UserId != idU  || id == 1)
                 {
                 return Unauthorized();
-            }
-            }
+                }
+          
             db.Routes.Remove(route);
             await db.SaveChangesAsync();
 
             return Ok(route);
         }
+        [Route("api/User/Admin/RemoveRoute/{id}")]
+        [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(Route))]
+        public async Task<IHttpActionResult> DeleteRoute2(int id)
+        {
+            string idU = RequestContext.Principal.Identity.GetUserId();
+            Route route = await db.Routes.FindAsync(id);
+            if (route == null)
+            {
+                return NotFound();
+            }
 
+            // if ( id == 1)
+            if (id == 1)
+            {
+                return Unauthorized();
+            }
+
+            db.Routes.Remove(route);
+            await db.SaveChangesAsync();
+
+            return Ok(route);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

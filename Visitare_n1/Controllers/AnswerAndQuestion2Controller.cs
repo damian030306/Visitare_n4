@@ -39,42 +39,43 @@ namespace Visitare_n1.Controllers
             return Ok(answerAndQuestion2);
         }
 
-        // PUT: api/AnswerAndQuestion2/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAnswerAndQuestion2(int id, AnswerAndQuestion2 answerAndQuestion2)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/AnswerAndQuestion2/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutAnswerAndQuestion2(int id, AnswerAndQuestion2 answerAndQuestion2)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != answerAndQuestion2.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != answerAndQuestion2.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(answerAndQuestion2).State = EntityState.Modified;
+        //    db.Entry(answerAndQuestion2).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AnswerAndQuestion2Exists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!AnswerAndQuestion2Exists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
         // POST: api/AnswerAndQuestion2
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(AnswerAndQuestion2))]
         public async Task<IHttpActionResult> PostAnswerAndQuestion2(AnswerAndQuestion2 answerAndQuestion2)
         {
@@ -97,6 +98,7 @@ namespace Visitare_n1.Controllers
         }
 
         // DELETE: api/AnswerAndQuestion2/5
+        [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(AnswerAndQuestion2))]
         public async Task<IHttpActionResult> DeleteAnswerAndQuestion2(int id)
         {
@@ -116,7 +118,7 @@ namespace Visitare_n1.Controllers
                 Task<bool> checkUser = userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
 
 
-                if (answerAndQuestion2.UserId != idU || checkUser.Equals(false) || id == 1)
+                if (answerAndQuestion2.UserId != idU || checkUser.Equals(false) )
                 {
                     return Unauthorized();
                 }

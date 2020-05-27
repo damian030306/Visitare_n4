@@ -39,5 +39,7 @@ namespace Visitare_n1.Models
         public System.Data.Entity.DbSet<Visitare_n1.Models.Test1> Test1 { get; set; }
 
         public System.Data.Entity.DbSet<Visitare_n1.Models.VisitedPoint> VisitedPoints { get; set; }
+
+        public System.Data.Entity.DbSet<Visitare_n1.Models.ConfirmedAnswer> ConfirmedAnswers { get; set; }
     }
 }

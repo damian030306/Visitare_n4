@@ -241,3 +241,4 @@ C:\Users\Jackie\Documents\Projects\git\Visitare_n4\Visitare_n1\obj\Debug\Visitar
 C:\Users\Jackie\Documents\Projects\git\Visitare_n4\Visitare_n1\obj\Debug\Visitare_n1.dll
 C:\Users\Jackie\Documents\Projects\git\Visitare_n4\Visitare_n1\obj\Debug\Visitare_n1.pdb
 C:\Users\Jackie\Documents\Projects\git\Visitare_n4\Visitare_n1\obj\Debug\Visitare_n1.Migrations.Initial1.resources
+C:\Users\Jackie\Documents\Projects\git\Visitare_n4\Visitare_n1\obj\Debug\Visitare_n1.Migrations.Initial2.resources

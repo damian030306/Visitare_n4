@@ -500,38 +500,39 @@ namespace Visitare_n1.Controllers
 
                 return output;
             }
-            // PUT: api/Test1/5
-            [Route("api/Rewards")]
-            [ResponseType(typeof(void))]
-            public async Task<IHttpActionResult> PutTest1(Test1 test1)
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+            //// PUT: api/Test1/5
+            //[Route("api/Rewards")]
+            //[ResponseType(typeof(void))]
+            //public async Task<IHttpActionResult> PutTest1(Test1 test1)
+            //{
+            //    if (!ModelState.IsValid)
+            //    {
+            //        return BadRequest(ModelState);
+            //    }
 
-                test1.Id = RequestContext.Principal.Identity.GetUserId();
+            //    test1.Id = RequestContext.Principal.Identity.GetUserId();
 
-                db.Entry(test1).State = EntityState.Modified;
+            //    db.Entry(test1).State = EntityState.Modified;
 
-                try
-                {
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!Test1Exists(test1.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+            //    try
+            //    {
+            //        await db.SaveChangesAsync();
+            //    }
+            //    catch (DbUpdateConcurrencyException)
+            //    {
+            //        if (!Test1Exists(test1.Id))
+            //        {
+            //            return NotFound();
+            //        }
+            //        else
+            //        {
+            //            throw;
+            //        }
+            //    }
 
-                return StatusCode(HttpStatusCode.NoContent);
-            }
+            //    return StatusCode(HttpStatusCode.NoContent);
+            //}
+
             [ResponseType(typeof(Test1))]
             [Route("api/Rewards/ChangeName")]
             public async Task<IHttpActionResult> PutTest12(string FirstName, string LastName)
@@ -602,48 +603,49 @@ namespace Visitare_n1.Controllers
 
                 return Ok(test1);
             }
-            // POST: api/Test1
-            // [Route("api/Rewards")]
-            [ResponseType(typeof(Test1))]
-            public async Task<IHttpActionResult> PostTest1(Test1 test1)
-            {
-                test1 = new Test1();
-                test1.Id = RequestContext.Principal.Identity.GetUserId();
-                test1.Punkty = 10;
-                test1.Nickname = RequestContext.Principal.Identity.Name;
+        // POST: api/Test1
+        // [Route("api/Rewards")]
+        //[ResponseType(typeof(Test1))]
+        //public async Task<IHttpActionResult> PostTest1(Test1 test1)
+        //{
+        //    test1 = new Test1();
+        //    test1.Id = RequestContext.Principal.Identity.GetUserId();
+        //    test1.Punkty = 10;
+        //    test1.Nickname = RequestContext.Principal.Identity.Name;
 
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
 
 
-                db.Test1.Add(test1);
 
-                try
-                {
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateException)
-                {
-                    if (Test1Exists(test1.Id))
-                    {
-                        return Conflict();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
 
-                return CreatedAtRoute("DefaultApi", new { id = test1.Id }, test1);
-            }
-            // [Route("api/Rewards")]
-            // DELETE: api/Test1
-            [ResponseType(typeof(Test1))]
+        //    db.Test1.Add(test1);
+
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        if (Test1Exists(test1.Id))
+        //        {
+        //            return Conflict();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return CreatedAtRoute("DefaultApi", new { id = test1.Id }, test1);
+        //}
+        // [Route("api/Rewards")]
+        // DELETE: api/Test1
+        [Authorize(Roles = "Admin")]
+        [ResponseType(typeof(Test1))]
             public async Task<IHttpActionResult> DeleteTest1()
             {
                 string id = RequestContext.Principal.Identity.GetUserId();

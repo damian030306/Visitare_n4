@@ -213,6 +213,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnswerAndQuestion2Controller.cs" />
+    <Compile Include="Controllers\ConfirmedAnswersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Points3Controller.cs" />
     <Compile Include="Controllers\RoutesController.cs" />
@@ -231,10 +232,15 @@
     <Compile Include="Migrations\202005232326210_Initial1.Designer.cs">
       <DependentUpon>202005232326210_Initial1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005261806160_Initial2.cs" />
+    <Compile Include="Migrations\202005261806160_Initial2.Designer.cs">
+      <DependentUpon>202005261806160_Initial2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AnswerAndQuestion2.cs" />
+    <Compile Include="Models\ConfirmedAnswer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Points3.cs" />
     <Compile Include="Models\Route.cs" />
@@ -340,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005232326210_Initial1.resx">
       <DependentUpon>202005232326210_Initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005261806160_Initial2.resx">
+      <DependentUpon>202005261806160_Initial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
