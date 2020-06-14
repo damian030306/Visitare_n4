@@ -90,7 +90,10 @@ namespace Visitare_n1.Controllers
             {
                 return NotFound();
             }
-
+            if( route.UserId != answerAndQuestion2.UserId)
+            {
+                return Unauthorized();
+            }
             db.AnswerAndQuestion2.Add(answerAndQuestion2);
             await db.SaveChangesAsync();
 
