@@ -35,6 +35,13 @@ namespace Visitare_n1.Models
     public class RegisterBindingModel
     {
         [Required]
+        [Display(Name = "FirstName")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "LastName")]
+        public string LastName { get; set; }
+
+        [Required]
         [Display(Name = "Nickname")]
         public string Nickname { get; set; }
 

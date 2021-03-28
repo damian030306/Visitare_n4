@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -317,7 +318,7 @@ namespace Visitare_n1.Controllers
 
             return logins;
         }
-
+        private ApplicationDbContext db = new ApplicationDbContext();
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -337,11 +338,22 @@ namespace Visitare_n1.Controllers
             {
                 return GetErrorResult(result);
             }
+
             using (var context = new ApplicationDbContext())
             {
                 var userStore = new UserStore<ApplicationUserModel>(context);
                 var userManager = new UserManager<ApplicationUserModel>(userStore);
+                Test1 user_ = new Test1(user.Id, user.UserName, 0, model.FirstName, model.LastName);
+                db.Test1.Add(user_);
 
+                try
+                {
+                    await db.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+
+                }
 
 
                 userManager.AddToRole(user.Id, "User");

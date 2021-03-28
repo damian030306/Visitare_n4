@@ -23,7 +23,7 @@ namespace Visitare_n1.App_Start
                 description = "access token",
                 required = false,
                 type = "string",
-                @default = "bearer D31giD91yqHLY-2s0YB7SJ_1Jy_Mky1H1J5t10MI9neEkWLrwt22WEHaEL8E3X2wEBHcfgTlwnAVYElWS2BZEsgqtcGs2tVGQXthGTk3jlclg0M6yq3DmvQwzIS4W4XuFPWHjCdKD75jNh7mYP8K8QQ8-amVCQpIf626SmkXerot4zG4u7hkiF6qLjqg6SDBtAgcMe9yyiFnSMOweakM-S7bgrn46YnQOwhkyaqSh4QV2lzS5W4lG45TT0MFEFPMWpuPtvuSKgeyBQiZcTJuPsawRNCI5nxvvRpZ6gZPIqjAuiWTtByVg42lto5ygoC3bBm8hAa_JlycQn0dX0o-kiRwglbwxcYsByTd1wdBS9AF6fiWDUT46gbVHRpSuAJay5hiWHufpFaZDPQTmRJ3vmqVrPoYEoBxuxbOYy0UUn5M7-F-aDNa2ua4xOmEDduDf03qlwCdzA0gjRMhOB-HMvCby3m2p97PSEKCIbYGN9nUyE1fMiYUX9nIuplI4uT-"
+                @default = "bearer WGlkqYRltAetsk3OYcAwLh6wiBwquUkXs2F2Om8YHvpVI7cUQb7juZpGUhS9bD9AUKg2YlFvR9KWXZ-_tH604eq_l7ht1k5kzRx2WHQvKjSer6V9P_qNYlXtaDwgxKUjqWF3PVUiDWgXo4mq39Ek4s-vVy__2xhQxjdw2HKhxlzWCAaM4dDM1PMOQx_SeWFaLj59Ki2xStY1-fR8ukBu3r_2dBsRVPOtKUGhDKmTVbK0fnMDORe0F01cBOZqZerTkH7eVflGtN1kq3bB8mb4A0zwG6e2SheizjD83Y3MdFx5Ub6ROSvQ-5H-_qk1qxTtnAguzbK8J46MhvjjKGiA3Zu9LyiKoSO3-fS_PIMbIq8n0JM5Pw-_nEKkEtVqqp2BqCUgan5eykxwVmiVBVHC4Xm86Ha-fryyavcib8BQzvQmg72r1N8acvL450TemC5HIVwzQp3NhB4_mG-vg9H7X9y53LnIT85oKT_hNKwWDzy-f_cHNc-TEllfra5P8rpfGnNAG821JFSwW1c9iZ5-LQ"
             });
         }
     }
