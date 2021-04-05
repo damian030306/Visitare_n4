@@ -73,58 +73,58 @@ namespace Visitare_n1.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Points3
-        public IQueryable<Points3> GetPoints3()
-        {
-            return db.Points3;
-        }
+        //// GET: api/Points3
+        //public IQueryable<Points3> GetPoints3()
+        //{
+        //    return db.Points3;
+        //}
 
-        // GET: api/Points3/5
-        [ResponseType(typeof(Points3))]
-        public async Task<IHttpActionResult> GetPoints3(int id)
-        {
-            Points3 points3 = await db.Points3.FindAsync(id);
-            if (points3 == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Points3/5
+        //[ResponseType(typeof(Points3))]
+        //public async Task<IHttpActionResult> GetPoints3(int id)
+        //{
+        //    Points3 points3 = await db.Points3.FindAsync(id);
+        //    if (points3 == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(points3);
-        }
-        [Authorize(Roles = "Creator")]
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPoints3(int id, Points3 points3)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    return Ok(points3);
+        //}
+        //[Authorize(Roles = "Creator")]
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutPoints3(int id, Points3 points3)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != points3.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != points3.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(points3).State = EntityState.Modified;
+        //    db.Entry(points3).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!Points3Exists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!Points3Exists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
         [AllowAnonymous]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/GetAllObjects")]
@@ -290,14 +290,14 @@ namespace Visitare_n1.Controllers
 
             //  return StatusCode(HttpStatusCode.NoContent);
         }
-        [Route("api/Points3/RouteOnNumber")]
-        public IQueryable<Points3> GetPoints32(int id)
-        {
+        //[Route("api/Points3/RouteOnNumber")]
+        //public IQueryable<Points3> GetPoints32(int id)
+        //{
 
-            return db.Points3.Where(q => q.RouteId == id);
+        //    return db.Points3.Where(q => q.RouteId == id);
 
 
-        }
+        //}
         [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/Add")]
@@ -386,60 +386,60 @@ namespace Visitare_n1.Controllers
             //   return CreatedAtRoute()
             return output;
         }
-        // POST: api/Points3
-        [Authorize(Roles = "Creator, Admin")]
-        [ResponseType(typeof(Points3))]
-        public async Task<IHttpActionResult> PostPoints3(Points3 points3)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            points3.UserId = RequestContext.Principal.Identity.GetUserId();
-            points3.UserName = RequestContext.Principal.Identity.GetUserName();
-            Route route = await db.Routes.FindAsync(points3.RouteId);
-            if(route == null)
-            {
-                return NotFound();
-            }
+        //// POST: api/Points3
+        //[Authorize(Roles = "Creator, Admin")]
+        //[ResponseType(typeof(Points3))]
+        //public async Task<IHttpActionResult> PostPoints3(Points3 points3)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    points3.UserId = RequestContext.Principal.Identity.GetUserId();
+        //    points3.UserName = RequestContext.Principal.Identity.GetUserName();
+        //    Route route = await db.Routes.FindAsync(points3.RouteId);
+        //    if(route == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            db.Points3.Add(points3);
-            await db.SaveChangesAsync();
+        //    db.Points3.Add(points3);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = points3.Id }, points3);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = points3.Id }, points3);
+        //}
 
-        // DELETE: api/Points3/5
-        [Authorize(Roles = "Creator")]
-        [ResponseType(typeof(Points3))]
-        public async Task<IHttpActionResult> DeletePoints3(int id)
-        {
-            string idU = RequestContext.Principal.Identity.GetUserId();
-            Points3 points3 = await db.Points3.FindAsync(id);
-            if (points3 == null)
-            {
-                return NotFound();
-            }
-            using (var context = new ApplicationDbContext())
-            {
-                var userStore = new UserStore<ApplicationUserModel>(context);
-                var userManager = new UserManager<ApplicationUserModel>(userStore);
-
-
-                Task<bool> checkUser = userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
+        //// DELETE: api/Points3/5
+        //[Authorize(Roles = "Creator")]
+        //[ResponseType(typeof(Points3))]
+        //public async Task<IHttpActionResult> DeletePoints3(int id)
+        //{
+        //    string idU = RequestContext.Principal.Identity.GetUserId();
+        //    Points3 points3 = await db.Points3.FindAsync(id);
+        //    if (points3 == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    using (var context = new ApplicationDbContext())
+        //    {
+        //        var userStore = new UserStore<ApplicationUserModel>(context);
+        //        var userManager = new UserManager<ApplicationUserModel>(userStore);
 
 
-                if (points3.UserId != idU || checkUser.Equals(false) )
-                {
-                    return Unauthorized();
-                }
-            }
+        //        Task<bool> checkUser = userManager.IsInRoleAsync(RequestContext.Principal.Identity.GetUserId(), "Admin");
+
+
+        //        if (points3.UserId != idU || checkUser.Equals(false) )
+        //        {
+        //            return Unauthorized();
+        //        }
+        //    }
             
-            db.Points3.Remove(points3);
-            await db.SaveChangesAsync();
+        //    db.Points3.Remove(points3);
+        //    await db.SaveChangesAsync();
 
-            return Ok(points3);
-        }
+        //    return Ok(points3);
+        //}
 
         protected override void Dispose(bool disposing)
         {

@@ -19,11 +19,11 @@ namespace Visitare_n1.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/VisitedPoints
-        public IQueryable<VisitedPoint> GetVisitedPoints()
-        {
-            return db.VisitedPoints;
-        }
+        //// GET: api/VisitedPoints
+        //public IQueryable<VisitedPoint> GetVisitedPoints()
+        //{
+        //    return db.VisitedPoints;
+        //}
 
 
         [Route("api/VisitedPoints/Check/{pointid}")]

@@ -20,24 +20,24 @@ namespace Visitare_n1.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/AnswerAndQuestion2
-        public IQueryable<AnswerAndQuestion2> GetAnswerAndQuestion2()
-        {
-            return db.AnswerAndQuestion2;
-        }
+        //// GET: api/AnswerAndQuestion2
+        //public IQueryable<AnswerAndQuestion2> GetAnswerAndQuestion2()
+        //{
+        //    return db.AnswerAndQuestion2;
+        //}
 
-        // GET: api/AnswerAndQuestion2/5
-        [ResponseType(typeof(AnswerAndQuestion2))]
-        public async Task<IHttpActionResult> GetAnswerAndQuestion2(int id)
-        {
-            AnswerAndQuestion2 answerAndQuestion2 = await db.AnswerAndQuestion2.FindAsync(id);
-            if (answerAndQuestion2 == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/AnswerAndQuestion2/5
+        //[ResponseType(typeof(AnswerAndQuestion2))]
+        //public async Task<IHttpActionResult> GetAnswerAndQuestion2(int id)
+        //{
+        //    AnswerAndQuestion2 answerAndQuestion2 = await db.AnswerAndQuestion2.FindAsync(id);
+        //    if (answerAndQuestion2 == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(answerAndQuestion2);
-        }
+        //    return Ok(answerAndQuestion2);
+        //}
 
         //// PUT: api/AnswerAndQuestion2/5
         //[ResponseType(typeof(void))]

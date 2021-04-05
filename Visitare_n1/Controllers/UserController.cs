@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -188,36 +189,29 @@ namespace Visitare_n1.Controllers
                 var userManager = new UserManager<ApplicationUserModel>(userStore);
                 var user = await userManager.FindByNameAsync(userName);
                 var roles = context.Roles.ToList();
+                var roleCurrent = roles.Where(q => q.Name == roleName).FirstOrDefault();
                 if (user == null)
                 {
-                    return StatusCode(HttpStatusCode.NotFound);
+                    return new System.Web.Http.Results.ResponseMessageResult(
+                Request.CreateErrorResponse((HttpStatusCode)404, new HttpError("User doesn't exists")));
                 }
-                //if (userManager.FindById(userId) == null)
-                //{
-                //    var r = userManager.IsInRole(user.Id, roleName);
-
-                //}
-                //bool roleExist = roles.Where(q => q.Name == roleName).FirstOrDefault().Name != roleName;
-                var roleCurrent = roles.Where(q => q.Name == roleName).FirstOrDefault();
                 if (roleCurrent == null)
                 {
-                    return StatusCode(HttpStatusCode.NotFound);
+                    return new System.Web.Http.Results.ResponseMessageResult(
+                Request.CreateErrorResponse((HttpStatusCode)404, new HttpError("Role doesn't exists")));
                 }
                 string roleId = roleCurrent.Id;
                 var userIsInRole = user.Roles.Where(q => q.RoleId == roleId && q.UserId == user.Id).FirstOrDefault();
-                if (roleId == null)
-                {
-                    return StatusCode(HttpStatusCode.NotFound);
-                }
                 if (userIsInRole != null)
                 {
-                    return StatusCode(HttpStatusCode.Conflict);
+                    return new System.Web.Http.Results.ResponseMessageResult(
+                         Request.CreateErrorResponse((HttpStatusCode)409, new HttpError("User belongs to role")));
                 }
-
 
 
                 await userManager.AddToRoleAsync(user.Id, roleName);
-                return StatusCode(HttpStatusCode.Created);
+                return new System.Web.Http.Results.ResponseMessageResult(
+                         Request.CreateErrorResponse((HttpStatusCode)201, new HttpError("User has been added to the role")));
             }
         }
         [Authorize(Roles = "Admin")]
@@ -233,31 +227,30 @@ namespace Visitare_n1.Controllers
                 var roles = context.Roles.ToList();
                 if (user == null)
                 {
-                    return StatusCode(HttpStatusCode.NotFound);
+                    return new System.Web.Http.Results.ResponseMessageResult(
+                Request.CreateErrorResponse((HttpStatusCode)404, new HttpError("User doesn't exists")));
                 }
-                //if (userManager.FindById(userId) == null)
-                //{
-                //    var r = userManager.IsInRole(user.Id, roleName);
-
-                //}
-                //bool roleExist = roles.Where(q => q.Name == roleName).FirstOrDefault().Name != roleName;
                 var roleCurrent = roles.Where(q => q.Name == roleName).FirstOrDefault();
                 if (roleCurrent == null)
                 {
-                    return StatusCode(HttpStatusCode.NotFound);
+                    return new System.Web.Http.Results.ResponseMessageResult(
+                Request.CreateErrorResponse((HttpStatusCode)404,new HttpError("Role doesn't exists"))); 
                 }
                 string roleId = roleCurrent.Id;
                 var userIsInRole = user.Roles.Where(q => q.RoleId == roleId && q.UserId == user.Id).FirstOrDefault();
-                if (user == null || roleId == null || userIsInRole == null)
+                if (userIsInRole == null)
                 {
-                    return StatusCode(HttpStatusCode.NotFound);
+                    return new System.Web.Http.Results.ResponseMessageResult(
+                        Request.CreateErrorResponse((HttpStatusCode)409, new HttpError("User doesn't belongs to role")));
                 }
 
 
 
 
                 await userManager.RemoveFromRoleAsync(user.Id, roleName);
-                return StatusCode(HttpStatusCode.OK);
+                return new System.Web.Http.Results.ResponseMessageResult(
+                        Request.CreateErrorResponse((HttpStatusCode)201, new HttpError("User has been removed from the role")));
+
             }
         }
         private bool Test1Exists(string id)

@@ -40,7 +40,7 @@ namespace Visitare_n1.Controllers
        [Authorize]
         public class Test1Controller : ApiController
         {
-            public void AddARole2(UserRolePairModel pairing)
+            private void AddARole2(UserRolePairModel pairing)
             {
                 using (var context = new ApplicationDbContext())
                 {
@@ -52,8 +52,8 @@ namespace Visitare_n1.Controllers
             }
             private ApplicationDbContext db = new ApplicationDbContext();
         [ResponseType(typeof(Test1))]
-        [Route("api/Rewards/GiveReward")]
-        public async Task<IHttpActionResult> PostGiveReward()
+        [Route("api/User_/GiveReward")]
+        public async Task<IHttpActionResult> PostGiveReward(int amount)
         {
 
 
@@ -63,7 +63,7 @@ namespace Visitare_n1.Controllers
             {
                 test1 = new Test1();
                 test1.Id = RequestContext.Principal.Identity.GetUserId();
-                test1.Punkty = 10;
+                test1.Punkty = amount;
                 test1.Nickname = RequestContext.Principal.Identity.GetUserName();
 
                 if (!ModelState.IsValid)
@@ -94,14 +94,14 @@ namespace Visitare_n1.Controllers
                 }
             }
             Test1 test1Get19 = await db.Test1.FindAsync(id);
-            if (test1.Punkty >= 440 && test1.Punkty < 500)
+            if (test1.Punkty >= 500 - amount && test1.Punkty < 500)
             {
                 UserRolePairModel userRolePairModel = new UserRolePairModel();
                 userRolePairModel.UserId = test1.Id;
                 userRolePairModel.RoleName = "Creator";
                 AddARole2(userRolePairModel);
             }
-            test1.Punkty = test1Get19.Punkty + 50;
+            test1.Punkty = test1Get19.Punkty + amount;
 
 
             test1.Id = RequestContext.Principal.Identity.GetUserId();
@@ -575,22 +575,22 @@ namespace Visitare_n1.Controllers
         //}
         // [Route("api/Rewards")]
         // DELETE: api/Test1
-        [Authorize(Roles = "Admin")]
-        [ResponseType(typeof(Test1))]
-            public async Task<IHttpActionResult> DeleteTest1()
-            {
-                string id = RequestContext.Principal.Identity.GetUserId();
-                Test1 test1 = await db.Test1.FindAsync(id);
-                if (test1 == null)
-                {
-                    return NotFound();
-                }
+        //[Authorize(Roles = "Admin")]
+        //[ResponseType(typeof(Test1))]
+        //    public async Task<IHttpActionResult> DeleteTest1()
+        //    {
+        //        string id = RequestContext.Principal.Identity.GetUserId();
+        //        Test1 test1 = await db.Test1.FindAsync(id);
+        //        if (test1 == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-                db.Test1.Remove(test1);
-                await db.SaveChangesAsync();
+        //        db.Test1.Remove(test1);
+        //        await db.SaveChangesAsync();
 
-                return Ok(test1);
-            }
+        //        return Ok(test1);
+        //    }
 
             protected override void Dispose(bool disposing)
             {

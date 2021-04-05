@@ -19,11 +19,11 @@ namespace Visitare_n1.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/ConfirmedAnswers
-        public IQueryable<ConfirmedAnswer> GetConfirmedAnswers()
-        {
-            return db.ConfirmedAnswers;
-        }
+        //// GET: api/ConfirmedAnswers
+        //public IQueryable<ConfirmedAnswer> GetConfirmedAnswers()
+        //{
+        //    return db.ConfirmedAnswers;
+        //}
 
         // GET: api/ConfirmedAnswers/5
         [Route("api/ConfirmedAnswers/Check/{answerid}")]

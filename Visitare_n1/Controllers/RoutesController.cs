@@ -24,18 +24,18 @@ namespace Visitare_n1.Controllers
 
         // GET: api/Routes
 
-        public IQueryable<Route> GetRoutes()
-        {
-            return db.Routes;
-        }
-        [Route("api/Routes/Search")]
-        public IQueryable<Route> GetPoints(string word)
-        {
+        //public IQueryable<Route> GetRoutes()
+        //{
+        //    return db.Routes;
+        //}
+        //[Route("api/Routes/Search")]
+        //public IQueryable<Route> GetPoints(string word)
+        //{
 
-            return db.Routes.Where(q => q.Name == word);
+        //    return db.Routes.Where(q => q.Name == word);
 
 
-        }
+        //}
         [Route("api/Routes/GetMine")]
         public IQueryable<Route> GetPoints2()
         {
@@ -44,19 +44,19 @@ namespace Visitare_n1.Controllers
 
 
         }
-        // GET: api/Routes/5
+        //// GET: api/Routes/5
 
-        [ResponseType(typeof(Route))]
-        public async Task<IHttpActionResult> GetRoute(int id)
-        {
-            Route route = await db.Routes.FindAsync(id);
-            if (route == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Route))]
+        //public async Task<IHttpActionResult> GetRoute(int id)
+        //{
+        //    Route route = await db.Routes.FindAsync(id);
+        //    if (route == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(route);
-        }
+        //    return Ok(route);
+        //}
         [Route("api/Routes/Name/{name}")]
         public IQueryable<Route> GetRoutes(string name)
         {
@@ -77,43 +77,43 @@ namespace Visitare_n1.Controllers
 
 
         }
-        // PUT: api/Routes/5
-        [Authorize(Roles = "Creator")]
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutRoute(int id, Route route)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Routes/5
+        //[Authorize(Roles = "Creator")]
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutRoute(int id, Route route)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != route.Id)
-            {
-                return BadRequest();
-            }
+        //    if (id != route.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            route.UserId = RequestContext.Principal.Identity.GetUserId();
-            route.UserName = RequestContext.Principal.Identity.GetUserName();
-            db.Entry(route).State = EntityState.Modified;
+        //    route.UserId = RequestContext.Principal.Identity.GetUserId();
+        //    route.UserName = RequestContext.Principal.Identity.GetUserName();
+        //    db.Entry(route).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RouteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!RouteExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
          [Authorize(Roles = "Creator, Admin")]
         [Route("api/Routes/AddImageUrl/{id}")]
         [ResponseType(typeof(Route))]
@@ -161,22 +161,22 @@ namespace Visitare_n1.Controllers
 
             return Ok(route);
         }
-        // POST: api/Routes
-        [Authorize(Roles = "Creator, Admin")]
-        [ResponseType(typeof(Route))]
-        public async Task<IHttpActionResult> PostRoute(Route route)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            route.UserId = RequestContext.Principal.Identity.GetUserId();
-            route.UserName = RequestContext.Principal.Identity.GetUserName();
-            db.Routes.Add(route);
-            await db.SaveChangesAsync();
+        //// POST: api/Routes
+        //[Authorize(Roles = "Creator, Admin")]
+        //[ResponseType(typeof(Route))]
+        //public async Task<IHttpActionResult> PostRoute(Route route)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    route.UserId = RequestContext.Principal.Identity.GetUserId();
+        //    route.UserName = RequestContext.Principal.Identity.GetUserName();
+        //    db.Routes.Add(route);
+        //    await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = route.Id }, route);
-        }
+        //    return CreatedAtRoute("DefaultApi", new { id = route.Id }, route);
+        //}
 
         // DELETE: api/Routes/5
 
