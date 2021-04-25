@@ -367,3 +367,4 @@ C:\Users\Basic\Documents\Projects\Visitare_n4\Visitare_n1\obj\Debug\Visitare_n1.
 C:\Users\Basic\Documents\Projects\Visitare_n4\Visitare_n1\obj\Debug\Visitare_n1.pdb
 C:\Users\Basic\Documents\Projects\Visitare_n4\Visitare_n1\bin\Swashbuckle.Core.dll
 C:\Users\Basic\Documents\Projects\Visitare_n4\Visitare_n1\bin\WebActivatorEx.dll
+C:\Users\Basic\Documents\Projects\Visitare_n4\Visitare_n1\bin\Documentation.xml

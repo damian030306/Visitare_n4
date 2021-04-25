@@ -20,7 +20,12 @@ namespace Visitare_n1.Controllers
     public class UserController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        /// <summary>
+        /// metoda PUT służąca do zmiany imienia i nazwiska zalogowanego użytkownika
+        /// </summary>
+        /// <param name="FirstName"></param>
+        /// <param name="LastName"></param>
+        /// <returns></returns>
         [ResponseType(typeof(Test1))]
             [Route("api/User_/ChangeAccountDetails")]
             public async Task<IHttpActionResult> PutTest12(string FirstName, string LastName)
@@ -56,7 +61,11 @@ namespace Visitare_n1.Controllers
 
                 return Ok(test1);
             }
-
+        /// <summary>
+        /// metoda GET służąca do wyświetlania szczegółowych danych o zalogowanym użytkowniku
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         [ResponseType(typeof(UserReturn))]
         [Route("api/User_/GetUserInfo")]
         public async Task<IHttpActionResult> GetUserInfo(string userName = null)
@@ -129,7 +138,10 @@ namespace Visitare_n1.Controllers
 
 
         }
-        
+        /// <summary>
+        /// metoda GET służąca do wyświetlania listy wszystkich użytkownik wraz z ilością zdobytych punktów oraz posiadaną przez nich rolą
+        /// </summary>
+        /// <returns></returns>
         [Route("api/User_/GetAllUserInfo")]
         public async Task<List<UserReturn>> GetAllUserInfo()
         {
@@ -177,7 +189,12 @@ namespace Visitare_n1.Controllers
 
 
         }
-
+        /// <summary>
+        /// metoda POST służąca do nadania rangi użytkownikowi o podanym identyfikatorze
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("api/User_/AddToRole")]
@@ -214,6 +231,12 @@ namespace Visitare_n1.Controllers
                          Request.CreateErrorResponse((HttpStatusCode)201, new HttpError("User has been added to the role")));
             }
         }
+        /// <summary>
+        /// metoda DELETE służąca do odbierania rangi użytkownikowi o podanym identyfikatorze
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="roleName"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [Route("api/User_/RemoveFromRole")]

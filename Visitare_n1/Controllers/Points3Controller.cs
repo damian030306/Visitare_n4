@@ -125,6 +125,10 @@ namespace Visitare_n1.Controllers
 
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
+        /// <summary>
+        /// metoda GET zwraca listę wszystkich tras wraz z ich szczegółami
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/GetAllObjects")]
@@ -166,6 +170,11 @@ namespace Visitare_n1.Controllers
 
 
         }
+        /// <summary>
+        /// metoda GET zwraca szczegółowe informacje trasy o podanym identyfikatorze
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/GetAllObjects/{id}")]
@@ -212,6 +221,11 @@ namespace Visitare_n1.Controllers
 
         }
         // PUT: api/Points3/5
+        /// <summary>
+        /// metoda POST służąca do dodawania ciekawych miejsc z podanej listy do trasy o podanym identyfikatorze
+        /// </summary>
+        /// <param name="punkty2"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(void))]
         [Route("api/Points3/Change")]
@@ -298,6 +312,11 @@ namespace Visitare_n1.Controllers
 
 
         //}
+        /// <summary>
+        /// metoda POST służąca do tworzenia trasy i ciekawych miejsc
+        /// </summary>
+        /// <param name="punkty3"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/Add")]
@@ -345,6 +364,11 @@ namespace Visitare_n1.Controllers
             //   return CreatedAtRoute()
             return output;
         }
+        /// <summary>
+        /// metoda POST służąca do stworzenia ciekawych miejsc i dodania ich do już istniejącej trasy
+        /// </summary>
+        /// <param name="punkty5"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Punkty3))]
         [Route("api/Points3/AddToExistingRoute")]

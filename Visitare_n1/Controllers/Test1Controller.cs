@@ -51,6 +51,11 @@ namespace Visitare_n1.Controllers
                 }
             }
             private ApplicationDbContext db = new ApplicationDbContext();
+        /// <summary>
+        /// metoda POST służąca do nagradzania określoną ilością punktów zalogowanego użytkownika
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
         [ResponseType(typeof(Test1))]
         [Route("api/User_/GiveReward")]
         public async Task<IHttpActionResult> PostGiveReward(int amount)

@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace Visitare_n1.Controllers
 {
     [Authorize]
-    public class ValuesController : ApiController
+    public class ValuesController 
     {
         // GET api/values
         public IEnumerable<string> Get()

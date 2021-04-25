@@ -25,9 +25,16 @@ namespace Visitare_n1.Controllers
         //    return db.VisitedPoints;
         //}
 
-
+        /// <summary>
+        /// metoda GET służąca do sprawdzania czy podane miejsce zostało odwiedzone przez zalogowanego użytkownika
+        /// </summary>
+        /// <param name="pointId"></param>
+        /// <returns></returns>
         [Route("api/VisitedPoints/Check/{pointid}")]
         [ResponseType(typeof(bool))]
+        /// <summary>
+        /// This class does something.
+        /// </summary>
         public async Task<bool> GetVisitedPoint2(int pointId)
         {
             string id = RequestContext.Principal.Identity.GetUserId(); 
@@ -79,6 +86,11 @@ namespace Visitare_n1.Controllers
         //}
 
         // POST: api/VisitedPoints
+        /// <summary>
+        /// metoda POST służąca do dodawania odwiedzin miejsca o podanym identyfikatorze przez zalogowanego użytkownika
+        /// </summary>
+        /// <param name="pointId"></param>
+        /// <returns></returns>
         [Route("api/VisitedPoints/Add/{pointid}")]
         [ResponseType(typeof(VisitedPoint))]
         public async Task<IHttpActionResult> PostVisitedPoint(int pointId)
@@ -118,7 +130,11 @@ namespace Visitare_n1.Controllers
 
             return Ok(visitedPoint);
         }
-
+        /// <summary>
+        /// metoda DELETE służąca do usuwania odwiedzin miejsca przez użytkownika, 
+        /// </summary>
+        /// <param name="pointId"></param>
+        /// <returns></returns>
         [Route("api/VisitedPoints/Remove/{pointid}")]
         // DELETE: api/VisitedPoints/5
         [ResponseType(typeof(VisitedPoint))]

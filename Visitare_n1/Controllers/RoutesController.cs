@@ -16,6 +16,9 @@ using Visitare_n1.Models;
 
 namespace Visitare_n1.Controllers
 {
+    /// <summary>
+    /// fvsdfsdf
+    /// </summary>
     [Authorize]
     public class RoutesController : ApiController
     {
@@ -36,6 +39,10 @@ namespace Visitare_n1.Controllers
 
 
         //}
+        /// <summary>
+        /// metoda GET służąca do zwracania listy tras stworzonych przez obecnego użytkownika
+        /// </summary>
+        /// <returns></returns>
         [Route("api/Routes/GetMine")]
         public IQueryable<Route> GetPoints2()
         {
@@ -57,6 +64,11 @@ namespace Visitare_n1.Controllers
 
         //    return Ok(route);
         //}
+        /// <summary>
+        /// metoda GET wyszukuje trasę o podanej nazwie
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [Route("api/Routes/Name/{name}")]
         public IQueryable<Route> GetRoutes(string name)
         {
@@ -68,7 +80,11 @@ namespace Visitare_n1.Controllers
             return routes;
 
         }
-
+        /// <summary>
+        /// metoda GET służąca do wyszukiwania tras stworzonych przez obecnego użytkownika
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
         [Route("api/Routes/GetMine/Search")]
         public IQueryable<Route> GetPoints2(string word)
         {
@@ -114,53 +130,59 @@ namespace Visitare_n1.Controllers
 
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
-         [Authorize(Roles = "Creator, Admin")]
-        [Route("api/Routes/AddImageUrl/{id}")]
-        [ResponseType(typeof(Route))]
-        public async Task<IHttpActionResult> PutRoute(int id, string ImageUrl)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            string Uid = RequestContext.Principal.Identity.GetUserId(); 
-            Route route = await db.Routes.FindAsync(id);
-            if (route == null)
-            {
-                return NotFound();
-            }
-            if (id != route.Id)
-            {
-                return BadRequest();
-            }
-            if(Uid != route.UserId)
-            {
-                return Unauthorized();
-            }
-            route.ImageUrl = ImageUrl;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ImageUrl"></param>
+        /// <returns></returns>
+        // [Authorize(Roles = "Creator, Admin")]
+        //[Route("api/Routes/AddImageUrl/{id}")]
+        //[ResponseType(typeof(Route))]
+        //public async Task<IHttpActionResult> PutRoute(int id, string ImageUrl)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    string Uid = RequestContext.Principal.Identity.GetUserId(); 
+        //    Route route = await db.Routes.FindAsync(id);
+        //    if (route == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    if (id != route.Id)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    if(Uid != route.UserId)
+        //    {
+        //        return Unauthorized();
+        //    }
+        //    route.ImageUrl = ImageUrl;
 
-            route.UserId = RequestContext.Principal.Identity.GetUserId();
-            route.UserName = RequestContext.Principal.Identity.GetUserName();
-            db.Entry(route).State = EntityState.Modified;
+        //    route.UserId = RequestContext.Principal.Identity.GetUserId();
+        //    route.UserName = RequestContext.Principal.Identity.GetUserName();
+        //    db.Entry(route).State = EntityState.Modified;
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RouteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!RouteExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return Ok(route);
-        }
+        //    return Ok(route);
+        //}
         //// POST: api/Routes
         //[Authorize(Roles = "Creator, Admin")]
         //[ResponseType(typeof(Route))]
@@ -179,7 +201,11 @@ namespace Visitare_n1.Controllers
         //}
 
         // DELETE: api/Routes/5
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(Route))]
         public async Task<IHttpActionResult> DeleteRoute(int id)
@@ -202,6 +228,11 @@ namespace Visitare_n1.Controllers
 
             return Ok(route);
         }
+        /// <summary>
+        /// metoda DELETE służy do usuwania dowolnej trasy
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route("api/User/Admin/RemoveRoute/{id}")]
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Route))]

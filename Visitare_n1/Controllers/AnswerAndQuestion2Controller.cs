@@ -75,6 +75,11 @@ namespace Visitare_n1.Controllers
         //}
 
         // POST: api/AnswerAndQuestion2
+        /// <summary>
+        /// metoda POST służąca do tworzenia zagadki o danej trasie
+        /// </summary>
+        /// <param name="answerAndQuestion2"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(AnswerAndQuestion2))]
         public async Task<IHttpActionResult> PostAnswerAndQuestion2(AnswerAndQuestion2 answerAndQuestion2)
@@ -101,6 +106,11 @@ namespace Visitare_n1.Controllers
         }
 
         // DELETE: api/AnswerAndQuestion2/5
+        /// <summary>
+        /// metoda DELETE służąca do usuwania zagadki
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Creator, Admin")]
         [ResponseType(typeof(AnswerAndQuestion2))]
         public async Task<IHttpActionResult> DeleteAnswerAndQuestion2(int id)

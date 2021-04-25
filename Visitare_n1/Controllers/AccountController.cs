@@ -116,6 +116,11 @@ namespace Visitare_n1.Controllers
         //}
 
         // POST api/Account/ChangePassword
+        /// <summary>
+        /// metoda POST służąca do zmiany hasła przez użytkownika
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
@@ -318,8 +323,12 @@ namespace Visitare_n1.Controllers
 
         //    return logins;
         //}
+        
         private ApplicationDbContext db = new ApplicationDbContext();
         // POST api/Account/Register
+        /// <summary>
+        /// metoda POST służąca do rejestracji użytkownika wraz z nadaniem podstawowej roli
+        /// </summary>
         [AllowAnonymous]
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)

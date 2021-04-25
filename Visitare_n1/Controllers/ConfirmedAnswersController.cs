@@ -26,6 +26,11 @@ namespace Visitare_n1.Controllers
         //}
 
         // GET: api/ConfirmedAnswers/5
+        /// <summary>
+        /// metoda GET służąca do sprawdzania czy dany użytkownik odpowiedział już na pytanie o podanym identyfikatorze
+        /// </summary>
+        /// <param name="answerid"></param>
+        /// <returns></returns>
         [Route("api/ConfirmedAnswers/Check/{answerid}")]
         [ResponseType(typeof(bool))]
         public async Task<bool> GetConfirmedAnswer(int answerid)
@@ -75,7 +80,11 @@ namespace Visitare_n1.Controllers
 
         //    return StatusCode(HttpStatusCode.NoContent);
         //}
-
+        /// <summary>
+        /// metoda POST służąca do zaznaczania, że dany użytkownik odpowiedział na zagadkę
+        /// </summary>
+        /// <param name="answerid"></param>
+        /// <returns></returns>
         [Route("api/ConfirmedAnswers/Add/{answerid}")]
         // POST: api/ConfirmedAnswers
         [ResponseType(typeof(VisitedPoint))]
@@ -121,6 +130,11 @@ namespace Visitare_n1.Controllers
         }
 
         // DELETE: api/ConfirmedAnswers/5
+        /// <summary>
+        /// metoda DELETE służąca do usuwania zapisanej odpowiedzi na daną zagadkę 
+        /// </summary>
+        /// <param name="answerid"></param>
+        /// <returns></returns>
         [Route("api/ConfirmedAnswers/Remove/{answerid}")]
         [ResponseType(typeof(ConfirmedAnswer))]
         public async Task<IHttpActionResult> DeleteConfirmedAnswer(int answerid)
